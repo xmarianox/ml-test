@@ -1,0 +1,1 @@
+export default () => <h1>Meli text</h1>
