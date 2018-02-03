@@ -8,12 +8,17 @@ export const HeaderWrapper = styled.header`
   height: auto;
   background-color: ${colors.yellow};
   padding: 8px;
-  
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
   justify-content: space-around;
+  
+  // iPhone X support
+  @supports(padding: max(0px)) {
+    padding-left: max(8px, env(safe-area-inset-left));
+    padding-right: max(8px, env(safe-area-inset-right));
+  }
 `;
 
 export const Logo = styled.a`

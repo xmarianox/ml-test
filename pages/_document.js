@@ -20,7 +20,7 @@ export default class MyDocument extends Document {
                 <link rel="preconnect" href={app.url} />
                 */}
           <title>Meli Frontend Test</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+          <meta name="viewport" content="initial-scale=1, viewport-fit=cover" />
 
           {/* <link rel="stylesheet" href="/static/css/normalize.css" /> */}
           {this.props.styleTags}
