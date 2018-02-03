@@ -12,20 +12,20 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-        <html lang="es">
-            <Head>
-                <meta charSet="utf-8" />
-                {/**
+      <html lang="es">
+        <Head>
+          <meta charSet="utf-8" />
+          {/**
                 <link rel="dns-prefetch" href={app.url} />
                 <link rel="preconnect" href={app.url} />
                 */}
-                <title>Meli Frontend Test</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+          <title>Meli Frontend Test</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-                {/* <link rel="stylesheet" href="/static/css/normalize.css" /> */}
-                {this.props.styleTags}
+          {/* <link rel="stylesheet" href="/static/css/normalize.css" /> */}
+          {this.props.styleTags}
 
-                {/**
+          {/**
                 <link rel="manifest" href="" />
                 <meta name="msapplication-TileColor" content="#161616" />
                 <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
@@ -56,12 +56,12 @@ export default class MyDocument extends Document {
                 <meta name="msapplication-config" content="/static/images/icons/browserconfig.xml" />
                 <meta name="theme-color" content="#050509" />
                 */}
-            </Head>
-            <body>
-                <Main />
-                <NextScript />
-            </body>
-        </html>
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </html>
     );
   }
 }

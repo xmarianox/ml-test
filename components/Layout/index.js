@@ -1,12 +1,15 @@
 import React, { PureComponent } from 'react';
 import { LayoutWrapper } from './styles';
 
+import { Header } from '../Header';
+
 export default class Layout extends PureComponent {
   render() {
     return (
-        <LayoutWrapper>
-            {this.props.children}
-        </LayoutWrapper>
+      <LayoutWrapper>
+        <Header />
+        {this.props.children}
+      </LayoutWrapper>
     );
   }
 }
