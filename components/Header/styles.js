@@ -16,12 +16,11 @@ export const HeaderWrapper = styled.header`
   justify-content: space-around;
 `;
 
-export const Logo = styled.span`
+export const Logo = styled.a`
   width: 41px;
   height: 28px;
   display: block;
-  background-image: url("/static/images/Logo_ML.png");
+  background: url("/static/images/Logo_ML.png") no-repeat center center;
   background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
+  text-indent: -9999px;
 `;

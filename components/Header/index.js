@@ -1,13 +1,10 @@
 import React from 'react';
 import { HeaderWrapper, Logo } from './styles';
-import Link from 'next/link';
-
+import SerchBar from '../SearchBar';
 
 export const Header = () => (
   <HeaderWrapper>
-    <Link href="/">
-      <Logo />
-    </Link>
-
+    <Logo href="/">Mercado Libre</Logo>
+    <SerchBar />
   </HeaderWrapper>
 );
