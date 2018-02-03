@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import constants from 'constants';
 
-const { colors } = constants.STYLE_VARS;
+const { colors, breakpoints } = constants.STYLE_VARS;
 
 
 export const SearchWrapper = styled.form`
@@ -16,6 +16,10 @@ export const SearchWrapper = styled.form`
   flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
+  
+  @media ${breakpoints.tabletLand} {
+    padding-left: 20px;
+  }
 `;
 
 export const Input = styled.input`
