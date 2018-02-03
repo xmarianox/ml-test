@@ -1,3 +1,4 @@
+import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
@@ -14,14 +15,18 @@ export default class MyDocument extends Document {
         <html lang="es">
             <Head>
                 <meta charSet="utf-8" />
-                {/* <link rel="dns-prefetch" href={app.url} />
+                {/**
+                <link rel="dns-prefetch" href={app.url} />
                 <link rel="preconnect" href={app.url} />
-                <title>{app.title}</title> */}
+                */}
+                <title>Meli Frontend Test</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
+                {/* <link rel="stylesheet" href="/static/css/normalize.css" /> */}
                 {this.props.styleTags}
 
-                {/* <link rel="manifest" href="" />
+                {/**
+                <link rel="manifest" href="" />
                 <meta name="msapplication-TileColor" content="#161616" />
                 <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
                 <meta name="format-detection" content="telephone=no" />
@@ -49,7 +54,8 @@ export default class MyDocument extends Document {
                 <meta name="twitter:site" content={app.url} />
                 <meta name="twitter:creator" content={app.url} />
                 <meta name="msapplication-config" content="/static/images/icons/browserconfig.xml" />
-                <meta name="theme-color" content="#050509" /> */}
+                <meta name="theme-color" content="#050509" />
+                */}
             </Head>
             <body>
                 <Main />
