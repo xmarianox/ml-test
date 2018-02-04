@@ -1,5 +1,6 @@
+/* eslint-disable no-undef */
 import React, { PureComponent } from 'react';
-import { Layout } from '../components';
+import { Layout } from 'components';
 
 export default class Main extends PureComponent {
   constructor() {
@@ -19,7 +20,9 @@ export default class Main extends PureComponent {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(`query submited: ${this.state.queryText}`);
+    if (this.state.queryText !== '') {
+      window.location.replace(`/items?search=${this.state.queryText}`);
+    }
   }
 
   render() {
@@ -29,7 +32,7 @@ export default class Main extends PureComponent {
         onChange={ this.handleChange }
         onSubmit={ this.handleSubmit }
       >
-        <h1>Meli test</h1>
+        <h1>Home</h1>
       </Layout>
     );
   }
