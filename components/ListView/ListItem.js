@@ -2,15 +2,38 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { ListItemWrapper } from './styles';
+import {
+  ListItemWrapper,
+  Container,
+  ItemImage,
+  ItemDataContainer,
+  ShippinIcon,
+  ItemLocationContainer,
+} from './styles';
 
 export default class ListItem extends PureComponent {
+  renderFreeShippingIcon(shipping) {
+    if (!shipping) return null;
+    return <ShippinIcon />;
+  }
+
   render() {
     const item = this.props.data;
 
     return (
       <ListItemWrapper>
-        <h2>{ item.title }</h2>
+        <Container>
+          <ItemImage src={ item.thumbnail } />
+
+          <ItemDataContainer>
+            <strong>{ item.price } {this.renderFreeShippingIcon(item.shipping.free_shipping)}</strong>
+            <p>{ item.title }</p>
+          </ItemDataContainer>
+
+          <ItemLocationContainer>
+            <p>{ item.address.state_name }</p>
+          </ItemLocationContainer>
+        </Container>
       </ListItemWrapper>
     );
   }

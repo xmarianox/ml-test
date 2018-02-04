@@ -48,7 +48,10 @@ export default class ItemsList extends PureComponent {
         onSubmit={ this.handleSubmit }
       >
 
-        <ListView data={ this.state.searchItems } />
+        <ListView
+          data={ this.state.searchItems }
+          limit={ 4 }
+        />
 
       </Layout>
     );
