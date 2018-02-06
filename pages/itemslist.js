@@ -11,12 +11,13 @@ const Container = styled.main`
   height: auto;
   max-width: 866px;
   margin: 0 auto;
-
+  padding-bottom: 30px;
+  
   // iPhone X support
   @supports(padding: max(0px)) {
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: max(30px, env(safe-area-inset-bottom));
   }
 `;
 

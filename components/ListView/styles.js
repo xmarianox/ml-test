@@ -11,13 +11,11 @@ export const ListWrapper = styled.ol`
   margin: 0 auto;
   
   @media ${breakpoints.tabletPort} {
-    &:first-child {
-      border-radius: 4px 4px 0 0;
-    }
-    
-    &:last-child {
-      border-radius: 0 0 4px 4px;
-    }
+    padding: 0 8px;
+  }
+  
+  @media ${breakpoints.tabletLand} {
+    padding: 0;
   }
 `;
 
@@ -42,6 +40,18 @@ export const ListItemWrapper = styled.li`
     &:after {
       width: 94.5%;
       left: 24px;
+    }
+    
+    &:first-child {
+      border-radius: 4px 4px 0 0;
+    }
+    
+    &:last-child {
+      border-radius: 0 0 4px 4px;
+      
+      &:after {
+        display: none;
+      }
     }
   }
 `;

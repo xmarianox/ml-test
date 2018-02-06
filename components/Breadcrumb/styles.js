@@ -39,6 +39,9 @@ export const Wrapper = styled.ul`
   }
     
   @media ${breakpoints.tabletPort} {
+    padding: 16px 8px;
+  }
+  @media ${breakpoints.tabletLand} {
     padding: 16px 0;
   }
 `;
