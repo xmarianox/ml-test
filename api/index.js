@@ -13,7 +13,10 @@ module.exports = {
         },
       });
       const responseJson = await response.json();
-      return responseJson.results;
+      return {
+        items: responseJson.results,
+        filters: responseJson.filters,
+      };
     } catch (err) {
       return { error: err };
     }

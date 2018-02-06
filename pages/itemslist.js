@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Layout, ListView } from 'components';
+import { Layout, ListView, Breadcrumb } from 'components';
 import api from 'api';
 
 
@@ -24,12 +24,13 @@ export default class ItemsList extends PureComponent {
   static async getInitialProps({ req, res, query }) {
     if (query === '' || query === undefined) res.redirect('/');
     // console.log(`request client: ${query}`);
-    const items = await api.search(query);
-    // console.log(`items: ${items}`);
+    const result = await api.search(query);
+    const path = result.filters.map(filter => filter.values.map(value => value.path_from_root));
 
     return {
       query,
-      searchItems: items,
+      searchItems: result.items,
+      pathFromRoot: path[0][0],
     };
   }
 
@@ -39,6 +40,7 @@ export default class ItemsList extends PureComponent {
     this.state = {
       queryText: this.props.query,
       searchItems: this.props.searchItems,
+      pathFromRoot: this.props.pathFromRoot,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -65,10 +67,14 @@ export default class ItemsList extends PureComponent {
         onSubmit={ this.handleSubmit }
       >
         <Container>
+
+          <Breadcrumb items={ this.state.pathFromRoot } />
+
           <ListView
             data={ this.state.searchItems }
             limit={ 4 }
           />
+
         </Container>
       </Layout>
     );
@@ -78,4 +84,5 @@ export default class ItemsList extends PureComponent {
 ItemsList.propTypes = {
   query: PropTypes.string.isRequired,
   searchItems: PropTypes.array.isRequired,
+  pathFromRoot: PropTypes.array.isRequired,
 };
