@@ -6,6 +6,7 @@ import {
   ListItemWrapper,
   Container,
   ItemImage,
+  ItemInfoContainer,
   ItemDataContainer,
   ShippinIcon,
   ItemLocationContainer,
@@ -23,16 +24,23 @@ export default class ListItem extends PureComponent {
     return (
       <ListItemWrapper>
         <Container>
-          <ItemImage src={ item.thumbnail } />
+          <ItemImage>
+            <img
+              src={ item.thumbnail }
+              alt={ item.title }
+            />
+          </ItemImage>
 
-          <ItemDataContainer>
-            <strong>{ item.price } {this.renderFreeShippingIcon(item.shipping.free_shipping)}</strong>
-            <p>{ item.title }</p>
-          </ItemDataContainer>
+          <ItemInfoContainer>
+            <ItemDataContainer>
+              <strong>$ { item.price } {this.renderFreeShippingIcon(item.shipping.free_shipping)}</strong>
+              <p>{ item.title }</p>
+            </ItemDataContainer>
 
-          <ItemLocationContainer>
-            <p>{ item.address.state_name }</p>
-          </ItemLocationContainer>
+            <ItemLocationContainer>
+              <p>{ item.address.state_name }</p>
+            </ItemLocationContainer>
+          </ItemInfoContainer>
         </Container>
       </ListItemWrapper>
     );
