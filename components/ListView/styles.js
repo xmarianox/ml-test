@@ -122,6 +122,11 @@ export const ItemDataContainer = styled.div`
     word-wrap: break-word;
   }
   
+  a {
+    text-decoration: none;
+    color: ${colors.darkGray};
+  }
+  
   @media ${breakpoints.tabletPort} {
     width: 70%;
     padding: 16px;

@@ -13,11 +13,6 @@ import {
 } from './styles';
 
 export default class ListItem extends PureComponent {
-  renderFreeShippingIcon(shipping) {
-    if (!shipping) return null;
-    return <ShippinIcon />;
-  }
-
   render() {
     const item = this.props.data;
 
@@ -25,16 +20,18 @@ export default class ListItem extends PureComponent {
       <ListItemWrapper>
         <Container>
           <ItemImage>
-            <img
-              src={ item.thumbnail }
-              alt={ item.title }
-            />
+            <a href={ `/item/${item.id}` } title={ item.title }>
+              <img
+                src={ item.thumbnail }
+                alt={ item.title }
+              />
+            </a>
           </ItemImage>
 
           <ItemInfoContainer>
             <ItemDataContainer>
-              <strong>$ { item.price } {this.renderFreeShippingIcon(item.shipping.free_shipping)}</strong>
-              <p>{ item.title }</p>
+              <strong>$ { item.price } { item.shipping.free_shipping && <ShippinIcon /> }</strong>
+              <p><a href={ `/item/${item.id}` } title={ item.title }>{ item.title }</a></p>
             </ItemDataContainer>
 
             <ItemLocationContainer>

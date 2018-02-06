@@ -21,7 +21,7 @@ const Container = styled.main`
   }
 `;
 
-export default class ItemsList extends PureComponent {
+export default class Items extends PureComponent {
   static async getInitialProps({ req, res, query }) {
     if (query === '' || query === undefined) res.redirect('/');
     // console.log(`request client: ${query}`);
@@ -82,7 +82,7 @@ export default class ItemsList extends PureComponent {
   }
 }
 
-ItemsList.propTypes = {
+Items.propTypes = {
   query: PropTypes.string.isRequired,
   searchItems: PropTypes.array.isRequired,
   pathFromRoot: PropTypes.array.isRequired,
