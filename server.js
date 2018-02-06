@@ -9,10 +9,14 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
+  server.get('/items', (req, res) => app.render(req, res, '/search_result', req.query.search));
+
+  server.get('/items/:id', (req, res) => app.render(req, res, '/item_detail', { id: req.params.id }));
+
   server.get('*', (req, res) => handle(req, res));
 
   server.listen(port, (err) => {
     if (err) throw err;
-    console.log(`> Ready on http://localhost:${port}`);
+    console.log(`> Server Ready on http://localhost:${port}`);
   });
 });

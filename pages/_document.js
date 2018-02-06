@@ -25,6 +25,11 @@ export default class MyDocument extends Document {
           {/* <link rel="stylesheet" href="/static/css/normalize.css" /> */}
           {this.props.styleTags}
 
+          <link rel="shortcut icon" href="https://http2.mlstatic.com/resources/frontend/commons-frontend/ui-dist/images/components/navigation/ML/favicon.ed1a7e19.ico" />
+          <link rel="apple-touch-icon" href="https://http2.mlstatic.com/resources/frontend/commons-frontend/ui-dist/images/components/navigation/ML/60x60-precomposed.0e169836.png" />
+          <link rel="apple-touch-icon" sizes="76x76" href="https://http2.mlstatic.com/resources/frontend/commons-frontend/ui-dist/images/components/navigation/ML/76x76-precomposed.f30c8ccd.png" />
+          <link rel="apple-touch-icon" sizes="120x120" href="https://http2.mlstatic.com/resources/frontend/commons-frontend/ui-dist/images/components/navigation/ML/120x120-precomposed.23b6a445.png" />
+          <link rel="apple-touch-icon" sizes="152x152" href="https://http2.mlstatic.com/resources/frontend/commons-frontend/ui-dist/images/components/navigation/ML/152x152-precomposed.7ffb5147.png" />
           {/**
                 <link rel="manifest" href="" />
                 <meta name="msapplication-TileColor" content="#161616" />

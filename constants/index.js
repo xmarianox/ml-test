@@ -32,6 +32,11 @@ const STYLE_VARS = {
   },
 };
 
+const CONFIG = {
+  api_url: 'https://api.mercadolibre.com',
+};
+
 module.exports = {
   STYLE_VARS,
+  CONFIG,
 };
