@@ -2,8 +2,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Layout, Breadcrumb } from 'components';
+import { Layout, Breadcrumb, Button } from 'components';
 import api from 'api';
+
+import constants from 'constants';
+
+const { colors, breakpoints } = constants.STYLE_VARS;
 
 const Container = styled.main`
   width: 100%;
@@ -16,6 +20,33 @@ const Container = styled.main`
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
     padding-bottom: env(safe-area-inset-bottom);
+  }
+`;
+
+const ItemContainer = styled.article`
+  width: 100%;
+  background-color: ${colors.white};
+  border-radius: 4px;
+  
+  display: flex;
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  
+  .col-8, .col-2 {
+    width: 100%;
+  }
+  
+  @media ${breakpoints.tabletPort} {
+    flex-direction: row;
+    
+    .col-8 {
+      width: 80%;
+    }
+    .col-2 {
+      width: 20%;
+    }
   }
 `;
 
@@ -35,13 +66,13 @@ export default class ItemDetail extends PureComponent {
 
     this.state = {
       queryText: '',
-      currentItem: this.props.item,
       currentDescription: this.props.description,
       // pathFromRoot: this.props.pathFromRoot,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleButtonBuy = this.handleButtonBuy.bind(this);
   }
 
   handleChange(event) {
@@ -51,6 +82,11 @@ export default class ItemDetail extends PureComponent {
   handleSubmit(event) {
     event.preventDefault();
     window.location.replace(`/items?search=${this.state.queryText}`);
+  }
+
+  handleButtonBuy(event) {
+    event.preventDefault();
+    console.log(`Comprando item: ${this.props.item.title}`);
   }
 
   render() {
@@ -63,6 +99,30 @@ export default class ItemDetail extends PureComponent {
         <Container>
           {/* <Breadcrumb items={ this.state.pathFromRoot } /> */}
 
+          <ItemContainer>
+
+            <section className="col-8">
+              <p>big</p>
+            </section>
+
+            <section className="col-2">
+              <header>
+                <span>{ this.props.item.condition ? 'Nuevo' : 'Usado' } - { this.props.item.sold_quantity } vendidos</span>
+                <h1>{ this.props.item.title }</h1>
+              </header>
+
+              <div>
+                <span>$ { this.props.item.price }</span>
+
+                <Button
+                  label="Comprar"
+                  action={ this.handleButtonBuy }
+                />
+
+              </div>
+            </section>
+
+          </ItemContainer>
 
         </Container>
       </Layout>

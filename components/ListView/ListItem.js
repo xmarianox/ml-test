@@ -20,7 +20,7 @@ export default class ListItem extends PureComponent {
       <ListItemWrapper>
         <Container>
           <ItemImage>
-            <a href={ `/item/${item.id}` } title={ item.title }>
+            <a href={ `/items/${item.id}` } title={ item.title }>
               <img
                 src={ item.thumbnail }
                 alt={ item.title }
@@ -31,7 +31,7 @@ export default class ListItem extends PureComponent {
           <ItemInfoContainer>
             <ItemDataContainer>
               <strong>$ { item.price } { item.shipping.free_shipping && <ShippinIcon /> }</strong>
-              <p><a href={ `/item/${item.id}` } title={ item.title }>{ item.title }</a></p>
+              <p><a href={ `/items/${item.id}` } title={ item.title }>{ item.title }</a></p>
             </ItemDataContainer>
 
             <ItemLocationContainer>
