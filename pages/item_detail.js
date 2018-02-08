@@ -36,6 +36,51 @@ const ItemContainer = styled.article`
   
   .col-8, .col-2 {
     width: 100%;
+    padding: 16px;
+  }
+  
+  .product-header {
+    width: 100%;
+    
+    span {
+      font-size: 14px;
+      margin: 16px 0;
+      display: block;
+    }
+    
+    h1 {
+      font-size: 24px;
+      line-height: 30px;
+      font-weight: 600;
+      margin-bottom: 32px;
+    }
+  }
+  
+  .price {
+    font-size: 46px;
+    line-height: 50px;
+    margin-bottom: 32px;
+    display: block;
+  }
+  
+  .product-image {
+    width: 100%;
+    height: auto;
+    max-width: 680px;
+    display: block;
+  }
+  
+  .product-description-container {
+    width: 100%;
+    height: auto;
+    max-width: 680px;
+    
+    > p > img {
+      width: 100%;
+      height: auto;
+      max-width: 680px;
+      display: block;
+    }
   }
   
   @media ${breakpoints.tabletPort} {
@@ -54,7 +99,7 @@ export default class ItemDetail extends PureComponent {
   static async getInitialProps({ query: { id } }) {
     const curItem = await api.getItem(id);
     const curItemDesc = await api.getItemDescription(id);
-
+    // console.log(`descripcion: ${JSON.stringify(curItemDesc)}`);
     return {
       item: curItem,
       description: curItemDesc,
@@ -66,7 +111,6 @@ export default class ItemDetail extends PureComponent {
 
     this.state = {
       queryText: '',
-      currentDescription: this.props.description,
       // pathFromRoot: this.props.pathFromRoot,
     };
 
@@ -102,17 +146,28 @@ export default class ItemDetail extends PureComponent {
           <ItemContainer>
 
             <section className="col-8">
-              <p>big</p>
+
+              <img
+                src={ this.props.item.pictures[0].secure_url }
+                alt={ this.props.item.title }
+                className="product-image"
+              />
+
+              <div
+                className="product-description-container"
+                dangerouslySetInnerHTML={ { __html: this.props.description.text } }
+              />
+
             </section>
 
             <section className="col-2">
-              <header>
+              <header className="product-header">
                 <span>{ this.props.item.condition ? 'Nuevo' : 'Usado' } - { this.props.item.sold_quantity } vendidos</span>
                 <h1>{ this.props.item.title }</h1>
               </header>
 
               <div>
-                <span>$ { this.props.item.price }</span>
+                <span className="price">$ { this.props.item.price }</span>
 
                 <Button
                   label="Comprar"
