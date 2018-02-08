@@ -115,7 +115,8 @@ export default class ItemDetail extends PureComponent {
   static async getInitialProps({ query: { id } }) {
     const curItem = await api.getItem(id);
     const curItemDesc = await api.getItemDescription(id);
-    // console.log(`descripcion: ${JSON.stringify(curItemDesc)}`);
+    console.log(`item: ${JSON.stringify(curItem)}`);
+
     return {
       item: curItem,
       description: curItemDesc,
