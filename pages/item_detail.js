@@ -74,12 +74,28 @@ const ItemContainer = styled.article`
     width: 100%;
     height: auto;
     max-width: 680px;
-    
+    overflow: hidden;
+    padding: 32px 0;
+        
     > p > img {
       width: 100%;
       height: auto;
       max-width: 680px;
       display: block;
+    }
+    
+    h2 {
+      font-size: 28px;
+      margin-bottom: 32px;
+      word-wrap: break-word;
+    }
+    
+    p {
+      width: 100%;
+      font-size: 16px;
+      line-height: 20px;
+      color: ${colors.mediumGray};
+      word-wrap: break-word;
     }
   }
   
@@ -147,16 +163,27 @@ export default class ItemDetail extends PureComponent {
 
             <section className="col-8">
 
-              <img
-                src={ this.props.item.pictures[0].secure_url }
-                alt={ this.props.item.title }
-                className="product-image"
-              />
+              { this.props.item.pictures &&
+                <img
+                  src={ this.props.item.pictures[0].secure_url }
+                  alt={ this.props.item.title }
+                  className="product-image"
+                />
+              }
 
-              <div
-                className="product-description-container"
-                dangerouslySetInnerHTML={ { __html: this.props.description.text } }
-              />
+              { this.props.description.text &&
+                <div
+                  className="product-description-container"
+                  dangerouslySetInnerHTML={ { __html: this.props.description.text } }
+                />
+              }
+
+              { this.props.description.plain_text &&
+                <div className="product-description-container">
+                  <h2>Descripción del producto</h2>
+                  <p dangerouslySetInnerHTML={ { __html: this.props.description.plain_text } } />
+                </div>
+              }
 
             </section>
 
