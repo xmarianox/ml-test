@@ -24,14 +24,12 @@ const Container = styled.main`
 export default class Items extends PureComponent {
   static async getInitialProps({ req, res, query }) {
     if (query === '' || query === undefined) res.redirect('/');
-    // console.log(`request client: ${query}`);
     const result = await api.search(query);
-    const path = result.filters.map(filter => filter.values.map(value => value.path_from_root));
-
+    console.log(`result: ${JSON.stringify(result)}`);
     return {
       query,
       searchItems: result.items,
-      pathFromRoot: path[0][0],
+      categories: result.categories,
     };
   }
 
@@ -40,8 +38,6 @@ export default class Items extends PureComponent {
 
     this.state = {
       queryText: this.props.query,
-      searchItems: this.props.searchItems,
-      pathFromRoot: this.props.pathFromRoot,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -69,10 +65,10 @@ export default class Items extends PureComponent {
       >
         <Container>
 
-          <Breadcrumb items={ this.state.pathFromRoot } />
+          <Breadcrumb items={ this.props.categories } />
 
           <ListView
-            data={ this.state.searchItems }
+            data={ this.props.searchItems }
             limit={ 4 }
           />
 
@@ -85,5 +81,5 @@ export default class Items extends PureComponent {
 Items.propTypes = {
   query: PropTypes.string.isRequired,
   searchItems: PropTypes.array.isRequired,
-  pathFromRoot: PropTypes.array.isRequired,
+  categories: PropTypes.array.isRequired,
 };

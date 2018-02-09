@@ -8,10 +8,12 @@ export default class ListView extends PureComponent {
   render() {
     return (
       <ListWrapper>
-        {this.props.data.map((item, i) => {
-          if (i >= this.props.limit) return null;
-          return <ListItem key={ item.id } data={ item } />;
-        })}
+        { this.props.data &&
+          this.props.data.map((item, i) => {
+            if (i >= this.props.limit) return null;
+            return <ListItem key={ item.id } data={ item } />;
+          })
+        }
       </ListWrapper>
     );
   }

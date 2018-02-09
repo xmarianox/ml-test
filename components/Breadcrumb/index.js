@@ -6,7 +6,7 @@ import { Wrapper } from './styles';
 
 const Bread = ({ item }) => (
   <li>
-    <a href="#" title={ item.name }>{ item.name }</a>
+    <a href="#" title={ item }>{ item }</a>
   </li>
 );
 
@@ -14,7 +14,9 @@ export default class Breadcrumb extends PureComponent {
   render() {
     return (
       <Wrapper>
-        {this.props.items.map(item => <Bread key={ item.id } item={ item } />)}
+        { this.props.items &&
+          this.props.items.map(item => <Bread key={ item } item={ item } />)
+        }
       </Wrapper>
     );
   }
@@ -25,5 +27,5 @@ Breadcrumb.propTypes = {
 };
 
 Bread.propTypes = {
-  item: PropTypes.object.isRequired,
+  item: PropTypes.string.isRequired,
 };

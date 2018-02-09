@@ -27,7 +27,6 @@ const ItemContainer = styled.article`
   width: 100%;
   background-color: ${colors.white};
   border-radius: 4px;
-  
   display: flex;
   flex-direction: column-reverse;
   flex-wrap: wrap;
@@ -114,12 +113,9 @@ const ItemContainer = styled.article`
 export default class ItemDetail extends PureComponent {
   static async getInitialProps({ query: { id } }) {
     const curItem = await api.getItem(id);
-    const curItemDesc = await api.getItemDescription(id);
     console.log(`item: ${JSON.stringify(curItem)}`);
-
     return {
       item: curItem,
-      description: curItemDesc,
     };
   }
 
@@ -151,6 +147,8 @@ export default class ItemDetail extends PureComponent {
   }
 
   render() {
+    const item = this.props.item;
+
     return (
       <Layout
         query={ this.state.queryText }
@@ -164,25 +162,27 @@ export default class ItemDetail extends PureComponent {
 
             <section className="col-8">
 
-              { this.props.item.pictures &&
+              { item.picture &&
                 <img
-                  src={ this.props.item.pictures[0].secure_url }
-                  alt={ this.props.item.title }
+                  src={ item.picture }
+                  alt={ item.title }
                   className="product-image"
                 />
               }
 
+              {/*
               { this.props.description.text &&
                 <div
                   className="product-description-container"
                   dangerouslySetInnerHTML={ { __html: this.props.description.text } }
                 />
               }
+              */}
 
-              { this.props.description.plain_text &&
+              {item.description &&
                 <div className="product-description-container">
                   <h2>Descripción del producto</h2>
-                  <p dangerouslySetInnerHTML={ { __html: this.props.description.plain_text } } />
+                  <p dangerouslySetInnerHTML={ { __html: item.description } } />
                 </div>
               }
 
@@ -190,12 +190,12 @@ export default class ItemDetail extends PureComponent {
 
             <section className="col-2">
               <header className="product-header">
-                <span>{ this.props.item.condition ? 'Nuevo' : 'Usado' } - { this.props.item.sold_quantity } vendidos</span>
-                <h1>{ this.props.item.title }</h1>
+                <span>{ item.condition ? 'Nuevo' : 'Usado' } - { item.sold_quantity } vendidos</span>
+                <h1>{ item.title }</h1>
               </header>
 
               <div>
-                <span className="price">$ { this.props.item.price }</span>
+                <span className="price">$ { item.price }</span>
 
                 <Button
                   label="Comprar"
@@ -215,5 +215,4 @@ export default class ItemDetail extends PureComponent {
 
 ItemDetail.propTypes = {
   item: PropTypes.object.isRequired,
-  description: PropTypes.object.isRequired,
 };
