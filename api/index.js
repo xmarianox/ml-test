@@ -97,6 +97,7 @@ module.exports = {
         },
         item: {
           id: item.id,
+          category_id: item.category_id,
           title: item.title,
           price: {
             currency: item.currency_id,
@@ -120,5 +121,38 @@ module.exports = {
       };
     }
   },
+  getCategories: async (categoryId) => {
+    try {
+      // fetch item data
+      const response = await fetch(`${baseUrl}/categories/${categoryId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      // parse item
+      const json = await response.json();
+
+
+      const categories = json.path_from_root.map(category => category.name);
+
+      return {
+        author: {
+          name: 'Mariano',
+          lastname: 'Molina',
+        },
+        categories,
+      };
+    } catch (err) {
+      return {
+        author: {
+          name: 'Mariano',
+          lastname: 'Molina',
+        },
+        error: `Server error: ${err}`,
+      };
+    }
+
+  }
 };
 

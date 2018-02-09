@@ -25,7 +25,7 @@ export default class Items extends PureComponent {
   static async getInitialProps({ req, res, query }) {
     if (query === '' || query === undefined) res.redirect('/');
     const result = await api.search(query);
-    console.log(`result: ${JSON.stringify(result)}`);
+    // console.log(`result: ${JSON.stringify(result)}`);
     return {
       query,
       searchItems: result.items,

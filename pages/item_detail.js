@@ -58,6 +58,7 @@ const ItemContainer = styled.article`
   .price {
     font-size: 46px;
     line-height: 50px;
+    font-weight: 300;
     margin-bottom: 32px;
     display: block;
   }
@@ -98,24 +99,38 @@ const ItemContainer = styled.article`
     }
   }
   
-  @media ${breakpoints.tabletPort} {
+  @media ${breakpoints.tabletLand} {
     flex-direction: row;
     
     .col-8 {
-      width: 80%;
+      width: 70%;
     }
     .col-2 {
-      width: 20%;
+      width: 30%;
     }
   }
+  
+  @media ${breakpoints.laptopSmall} {
+    .col-8 {
+      width: 75%;
+    }
+    .col-2 {
+      width: 25%;
+    }
+  }
+  
 `;
 
 export default class ItemDetail extends PureComponent {
   static async getInitialProps({ query: { id } }) {
     const json = await api.getItem(id);
-    console.log(`item: ${JSON.stringify(json)}`);
+    // console.log(`item: ${JSON.stringify(json)}`);
+    const categoriesJson = await api.getCategories(json.item.category_id);
+    // console.log(`categories: ${categoriesJson.categories}`);
+
     return {
       item: json.item,
+      categories: categoriesJson.categories,
     };
   }
 
@@ -125,15 +140,12 @@ export default class ItemDetail extends PureComponent {
     this.state = {
       queryText: '',
       item: this.props.item,
+      categories: this.props.categories,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleButtonBuy = this.handleButtonBuy.bind(this);
-  }
-
-  componentDidMount() {
-    this.setState({ item: this.props.item });
   }
 
   handleChange(event) {
@@ -158,7 +170,7 @@ export default class ItemDetail extends PureComponent {
         onSubmit={ this.handleSubmit }
       >
         <Container>
-          {/* <Breadcrumb items={ this.state.pathFromRoot } /> */}
+          <Breadcrumb items={ this.state.categories } />
 
           <ItemContainer>
 
@@ -204,4 +216,5 @@ export default class ItemDetail extends PureComponent {
 
 ItemDetail.propTypes = {
   item: PropTypes.object.isRequired,
+  categories: PropTypes.array.isRequired,
 };
