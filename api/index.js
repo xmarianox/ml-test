@@ -18,11 +18,17 @@ module.exports = {
       });
       const search = await response.json();
       // console.log(`search: ${JSON.stringify(search)}`);
-      const categoriesArr = await search.filters.map(filter => filter.values.map(value => value.path_from_root.map(category => category.name)));
+      const categoriesArr = search.filters.map(filter => filter.values.map((value) => {
+        if (value.hasOwnProperty('path_from_root')) {
+          return value.path_from_root.map(category => category.name);
+        }
+        return value.name;
+      }));
+      // console.log(`categories: ${JSON.stringify(categoriesArr)}`);
       const categories = flatten(categoriesArr);
       // console.log(`categories: ${JSON.stringify(categories)}`);
       // populate items array
-      const items = await search.results.map(item => ({
+      const items = search.results.map(item => ({
         id: item.id,
         title: item.title,
         price: {
@@ -51,7 +57,7 @@ module.exports = {
           name: 'Mariano',
           lastname: 'Molina',
         },
-        error: err,
+        error: `Server error: ${err}`,
       };
     }
   },
@@ -66,18 +72,8 @@ module.exports = {
       });
       // parse item
       const item = await responseItem.json();
-
-      console.log(`item detail: ${JSON.stringify(item)}`);
-
+      // console.log(`item detail: ${JSON.stringify(item)}`);
       // add item picture
-      // let itemPicture = '';
-      // if (item.pictures !== null && item.pictures !== undefined) {
-      //   for (let i = 0; i < item.pictures.length; i += 1) {
-      //     if (i === 0) {
-      //       itemPicture = item.pictures[i].secure_url;
-      //     }
-      //   }
-      // }
       const itemPicture = item.pictures.map(picture => picture.secure_url);
 
       // fetch item description
@@ -89,10 +85,10 @@ module.exports = {
       });
       // parse description
       const descriptionJson = await responseDescription.json();
-      console.log(`item description: ${JSON.stringify(descriptionJson)}`);
+      // console.log(`item description: ${JSON.stringify(descriptionJson)}`);
       // add item description value
       const descriptionText = descriptionJson.plain_text === '' ? descriptionJson.text : descriptionJson.plain_text;
-      console.log(`item description: ${JSON.stringify(descriptionText)}`);
+      // console.log(`item description: ${JSON.stringify(descriptionText)}`);
 
       return {
         author: {
@@ -120,7 +116,7 @@ module.exports = {
           name: 'Mariano',
           lastname: 'Molina',
         },
-        error: err,
+        error: `Server error: ${err}`,
       };
     }
   },
