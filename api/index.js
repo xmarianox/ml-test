@@ -17,12 +17,10 @@ module.exports = {
         },
       });
       const search = await response.json();
-      console.log(`search: ${JSON.stringify(search)}`);
-
+      // console.log(`search: ${JSON.stringify(search)}`);
       const categoriesArr = await search.filters.map(filter => filter.values.map(value => value.path_from_root.map(category => category.name)));
       const categories = flatten(categoriesArr);
-      console.log(`categories: ${JSON.stringify(categories)}`);
-
+      // console.log(`categories: ${JSON.stringify(categories)}`);
       // populate items array
       const items = await search.results.map(item => ({
         id: item.id,
@@ -38,8 +36,7 @@ module.exports = {
         free_shipping: item.shipping.free_shipping,
       }));
 
-      console.log(`items: ${JSON.stringify(items)}`);
-
+      // console.log(`items: ${JSON.stringify(items)}`);
       return {
         author: {
           name: 'Mariano',
@@ -70,22 +67,18 @@ module.exports = {
       // parse item
       const item = await responseItem.json();
 
-      // add item picture
-      let itemPicture = '';
-      for (let i = 0; i < item.pictures.length; i++) {
-        if (i === 0) {
-          itemPicture = item.pictures[i].secure_url;
-        }
-      }
-      // const itemPicture = item.pictures.map(picture => picture.secure_url);
+      console.log(`item detail: ${JSON.stringify(item)}`);
 
-      // add item free shipping value
-      let itemFreeShipping = '';
-      for (let j = 0; j < item.shipping.free_methods.length; j++) {
-        if (j === 0) {
-          itemFreeShipping = item.shipping.free_methods[j].rule.free_shipping_flag;
-        }
-      }
+      // add item picture
+      // let itemPicture = '';
+      // if (item.pictures !== null && item.pictures !== undefined) {
+      //   for (let i = 0; i < item.pictures.length; i += 1) {
+      //     if (i === 0) {
+      //       itemPicture = item.pictures[i].secure_url;
+      //     }
+      //   }
+      // }
+      const itemPicture = item.pictures.map(picture => picture.secure_url);
 
       // fetch item description
       const responseDescription = await fetch(`${baseUrl}/items/${itemId}/description`, {
@@ -96,8 +89,10 @@ module.exports = {
       });
       // parse description
       const descriptionJson = await responseDescription.json();
+      console.log(`item description: ${JSON.stringify(descriptionJson)}`);
       // add item description value
       const descriptionText = descriptionJson.plain_text === '' ? descriptionJson.text : descriptionJson.plain_text;
+      console.log(`item description: ${JSON.stringify(descriptionText)}`);
 
       return {
         author: {
@@ -112,9 +107,9 @@ module.exports = {
             amount: item.price,
             decimals: 0,
           },
-          picture: itemPicture,
+          picture: itemPicture[0],
           condition: item.condition,
-          free_shipping: itemFreeShipping,
+          free_shipping: item.shipping.free_shipping,
           sold_quantity: item.sold_quantity,
           description: descriptionText,
         },
@@ -127,19 +122,6 @@ module.exports = {
         },
         error: err,
       };
-    }
-  },
-  getItemDescription: async (itemId) => {
-    try {
-      const response = await fetch(`${baseUrl}/items/${itemId}/description`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      return await response.json();
-    } catch (err) {
-      return { error: err };
     }
   },
 };

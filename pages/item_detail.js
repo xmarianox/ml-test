@@ -1,4 +1,4 @@
-/* eslint-disable no-undef,react/forbid-prop-types */
+/* eslint-disable no-undef,react/forbid-prop-types,react/no-danger */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -76,7 +76,7 @@ const ItemContainer = styled.article`
     overflow: hidden;
     padding: 32px 0;
         
-    > p > img {
+    p > p > img {
       width: 100%;
       height: auto;
       max-width: 680px;
@@ -112,10 +112,10 @@ const ItemContainer = styled.article`
 
 export default class ItemDetail extends PureComponent {
   static async getInitialProps({ query: { id } }) {
-    const curItem = await api.getItem(id);
-    console.log(`item: ${JSON.stringify(curItem)}`);
+    const json = await api.getItem(id);
+    console.log(`item: ${JSON.stringify(json)}`);
     return {
-      item: curItem,
+      item: json.item,
     };
   }
 
@@ -124,12 +124,16 @@ export default class ItemDetail extends PureComponent {
 
     this.state = {
       queryText: '',
-      // pathFromRoot: this.props.pathFromRoot,
+      item: this.props.item,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleButtonBuy = this.handleButtonBuy.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({ item: this.props.item });
   }
 
   handleChange(event) {
@@ -143,12 +147,10 @@ export default class ItemDetail extends PureComponent {
 
   handleButtonBuy(event) {
     event.preventDefault();
-    console.log(`Comprando item: ${this.props.item.title}`);
+    console.log(`Comprando item: ${this.state.item.title}`);
   }
 
   render() {
-    const item = this.props.item;
-
     return (
       <Layout
         query={ this.state.queryText }
@@ -162,40 +164,27 @@ export default class ItemDetail extends PureComponent {
 
             <section className="col-8">
 
-              { item.picture &&
-                <img
-                  src={ item.picture }
-                  alt={ item.title }
-                  className="product-image"
-                />
-              }
+              <img
+                src={ this.state.item.picture }
+                alt={ this.state.item.title }
+                className="product-image"
+              />
 
-              {/*
-              { this.props.description.text &&
-                <div
-                  className="product-description-container"
-                  dangerouslySetInnerHTML={ { __html: this.props.description.text } }
-                />
-              }
-              */}
-
-              {item.description &&
-                <div className="product-description-container">
-                  <h2>Descripción del producto</h2>
-                  <p dangerouslySetInnerHTML={ { __html: item.description } } />
-                </div>
-              }
+              <div className="product-description-container">
+                <h2>Descripción del producto</h2>
+                <p dangerouslySetInnerHTML={ { __html: this.state.item.description } } />
+              </div>
 
             </section>
 
             <section className="col-2">
               <header className="product-header">
-                <span>{ item.condition ? 'Nuevo' : 'Usado' } - { item.sold_quantity } vendidos</span>
-                <h1>{ item.title }</h1>
+                <span>{ this.state.item.condition ? 'Nuevo' : 'Usado' } - { this.state.item.sold_quantity } vendidos</span>
+                <h1>{ this.state.item.title }</h1>
               </header>
 
               <div>
-                <span className="price">$ { item.price }</span>
+                <span className="price">$ { this.state.item.price.amount }</span>
 
                 <Button
                   label="Comprar"
